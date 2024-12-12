@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation App</title>
+    <link rel="stylesheet" href="../static/app.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Machine Translation App</h1>
+        <form id="translation-form">
+            <label for="source-text">Enter text to translate:</label>
+            <textarea id="source-text" name="source-text" rows="5" placeholder="Type here..."></textarea>
+            <button type="button" id="translate-btn">Translate</button>
+        </form>
+        <div id="result">
+            <h2>Translation:</h2>
+            <p id="translation-output" dir="rtl"></p>
+        </div>
+    </div>
+    <script>
+        document.getElementById('translate-btn').addEventListener('click', async () => {
+            const sourceText = document.getElementById('source-text').value;
+            if (!sourceText.trim()) {
+                alert('Please enter some text to translate.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/translate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: sourceText }),
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    document.getElementById('translation-output').textContent = data.translation;
+                } else {
+                    document.getElementById('translation-output').textContent = `Error: ${data.error}`;
+                }
+            } catch (error) {
+                document.getElementById('translation-output').textContent = 'Error: Could not connect to the server.';
+            }
+        });
+    </script>
+</body>
+</html>

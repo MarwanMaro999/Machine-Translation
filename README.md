@@ -46,3 +46,5 @@ This project demonstrates how to use **Hugging Face** libraries to apply the **H
     ```sh
     pip install -r requirements.txt
     ```
+### Project Video
+[Video Link](https://drive.google.com/file/d/1qfXBA1W96P_1a8qNbgkIMIwex0nnSF5I/view?usp=sharing)
